@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+mysqlclient = "*"
+mysql-connector-python = "*"
+mysql = "*"
+pycodestyle = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
+
+[scripts]
+makemigrations = "python manage.py makemigrations"
+migrate = "python manage.py migrate"
+server = "python manage.py runserver --settings=palindrome_api.settings.local"
