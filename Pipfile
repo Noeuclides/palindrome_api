@@ -28,4 +28,4 @@ python_version = "3.7"
 [scripts]
 makemigrations = "python manage.py makemigrations --settings=palindrome_api.settings.local"
 migrate = "python manage.py migrate --settings=palindrome_api.settings.local"
-server = "python manage.py runserver --settings=palindrome_api.settings.local"
+server = "python manage.py runserver --settings=palindrome_api.settings.local 0.0.0.0:8000"

@@ -29,4 +29,13 @@ pipenv run server
 Note: The migrate and server commands are set in the Pipfile.
 
 ## Usage
-First go to the /register endpoint and register some user. Then go to the /login api login with the user you created and copy the token in order to use the /palindrome endpoint
+![root](https://github.com/Noeuclides/palindrome_api/raw/master/img/root.png)
+You nee to register in order to use the palindrome endpoint.
+![auth](https://github.com/Noeuclides/palindrome_api/raw/master/img/auth.png)
+![register](https://github.com/Noeuclides/palindrome_api/raw/master/img/register.png)
+
+Then go to the login endpoint and copy the token of the response:
+![login](https://github.com/Noeuclides/palindrome_api/raw/master/img/login.png)
+
+Put the token on the authorization of type Bearer and make the request to the palindrome endpoint:
+![palindrome](https://github.com/Noeuclides/palindrome_api/raw/master/img/palindrome.png)
