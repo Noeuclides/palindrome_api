@@ -10,6 +10,11 @@ from apps.palindrome.palindrome_algorithm import get_sub_palindrome
 
 
 class PalindromeAPIView(APIView):
+    """
+    Endpoint to get the substring palindrome.
+
+    palindrome -- Query parameter with the string to evaluate
+    """
     allowed_methods = ['GET']
     permission_classes = (IsAuthenticated,)
     authentication_classes = (JSONWebTokenAuthentication,)
