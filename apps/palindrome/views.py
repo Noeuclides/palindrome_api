@@ -2,12 +2,17 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import permission_classes
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from apps.palindrome.serializers import SubPalindrometSerializer
-from apps.palindrome.utils import get_sub_palindrome
+from apps.palindrome.palindrome_algorithm import get_sub_palindrome
 
 
 class PalindromeAPIView(APIView):
     allowed_methods = ['GET']
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (JSONWebTokenAuthentication,)
 
     def get(self, request: Request) -> Response:
         if not request.query_params:
@@ -28,7 +33,6 @@ class PalindromeAPIView(APIView):
                 status=status.HTTP_400_BAD_REQUEST)
 
         return Response(api_serielizer.data, status=status.HTTP_200_OK)
-
 
 class HomeAPIView(APIView):
     allowed_methods = ['GET']

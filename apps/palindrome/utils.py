@@ -1,11 +1,26 @@
+import json
+import jwt
+import requests
+from django.contrib.auth import authenticate
 
-def get_sub_palindrome(string: str) -> str:
-    if string == string[::-1]:
-        return string
-    window = len(string) - 1
-    while window >= 1:
-        for i in range(0, len(string) - window + 1):
-            sub_s = string[i:window+i]
-            if sub_s == sub_s[::-1]:
-                return sub_s
-        window -= 1
+
+def jwt_decode_token(token):
+    header = jwt.get_unverified_header(token)
+    jwks = requests.get(
+        'https://{}/.well-known/jwks.json'.format('AUTH0_DOMAIN')).json()
+    public_key = None
+    for jwk in jwks['keys']:
+        if jwk['kid'] == header['kid']:
+            public_key = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(jwk))
+
+    if public_key is None:
+        raise Exception('Public key not found.')
+
+    issuer = 'https://{}/'.format('AUTH0_DOMAIN')
+    return jwt.decode(token, public_key, audience='API_IDENTIFIER', issuer=issuer, algorithms=['RS256'])
+
+
+def jwt_get_username_from_payload_handler(payload):
+    username = payload.get('sub').replace('|', '.')
+    authenticate(remote_user=username)
+    return username
